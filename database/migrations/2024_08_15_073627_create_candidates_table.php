@@ -14,16 +14,18 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignidFor(User::class)->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignidFor(User::class)->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('ketua_id');
+            $table->foreign('ketua_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('wakil_id');
+            $table->foreign('wakil_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('ketua_image');
             $table->string('wakil_image');
-            $table->string('wakil_image');
-            $table->string('wakil_image');
+            $table->string('vision');
+            $table->string('mission');
             $table->timestamps();
         });
     }
-
+// 3
     /**
      * Reverse the migrations.
      */
