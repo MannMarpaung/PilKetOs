@@ -11,4 +11,3 @@ class DashboardController extends Controller
         return view('pages.admin.index');
     }
 }
-// 4
