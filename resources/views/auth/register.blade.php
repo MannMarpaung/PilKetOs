@@ -61,6 +61,37 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="nis" class="col-md-4 col-form-label text-md-end">{{ __('NIS') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nis" type="text" class="form-control @error('nis') is-invalid @enderror" name="nis" value="{{ old('nis') }}" required autocomplete="nis">
+
+                                @error('nis')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="class" class="col-md-4 col-form-label text-md-end">{{ __('Class') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-select @error('class') is-invalid @enderror" aria-label="Default select example" id="class" name="class" required autocomplete="class">
+                                    <option value="X RPL">XI RPL</option>
+                                    <option value="X TKJ">XI TKJ</option>
+                                </select>
+
+                                @error('class')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
