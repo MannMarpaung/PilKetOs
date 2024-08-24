@@ -1,6 +1,6 @@
 @extends('layouts.admin.parent')
 
-@section('title', 'Dashboard - Admin')
+@section('title', 'Admin Dashboard')
 
 @section('content')
 
@@ -9,6 +9,8 @@
     <button type="submit">Logout</button>
 </form>
 
-<h1>DASHBOARD - ADMIN</h1>
+<h1>ADMIN DASHBOARD</h1>
+
+<a href="{{ route('admin.candidate.index') }}">Candidate</a>
 
 @endsection
