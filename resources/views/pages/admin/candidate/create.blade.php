@@ -1,58 +1,108 @@
 @extends('layouts.admin.parent')
 
-@section('title', 'Admin Dashboard - Candidate - Create')
-
 @section('content')
+    <div class="pagetitle">
+        <h1>Candidate - Create</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.candidate.index') }}">Candidate</a></li>
+                <li class="breadcrumb-item active">Create Candidate</li>
+            </ol>
+        </nav>
+    </div>
 
-    <form action="{{ route('logout') }}" method="post">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
 
-    <h1>ADMIN DASHBOARD - CANDIDATE - CREATE</h1>
+                <div class="card">
+                    <div class="card-body">
 
-    <br>
-    <br>
-    <br>
+                        <!-- Create Candidate -->
+                        <form action="{{ route('admin.candidate.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('POST')
+                            <h5 class="card-title">Ketua of Candidate</h5>
 
-    <form action="{{ route('admin.candidate.store') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        @method('POST')
-        <select name="ketua_id" id="ketua_id">
-            <option disabled selected>Select Ketua</option>
-            @forelse ($user as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
-            @empty
-                <option disabled>No Data</option>
-            @endforelse
-        </select>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="ketua_id">Ketua ID</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" aria-label="Ketua ID" name="ketua_id" id="ketua_id"
+                                        required>
+                                        <option disabled selected value="">Select Ketua</option>
+                                        @forelse ($user as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @empty
+                                            <option disabled>No Data</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
 
-        <input type="file" name="ketua_image" id="ketua_image">
+                            <div class="row mb-3">
+                                <label for="ketua_image" class="col-sm-2 col-form-label">Ketua Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" name="ketua_image" id="ketua_image" required>
+                                </div>
+                            </div>
 
-        <br>
+                            <h5 class="card-title">Wakil of Candidate</h5>
 
-        <select name="wakil_id" id="wakil_id">
-            <option disabled selected>Select Wakil</option>
-            @forelse ($user as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
-            @empty
-                <option disabled>No Data</option>
-            @endforelse
-        </select>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="wakil_id">Wakil ID</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" aria-label="Wakil ID" name="wakil_id" id="wakil_id"
+                                        required>
+                                        <option disabled selected value="">Select Wakil</option>
+                                        @forelse ($user as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @empty
+                                            <option disabled>No Data</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
 
-        <input type="file" name="wakil_image" id="wakil_image">
+                            <div class="row mb-3">
+                                <label for="wakil_image" class="col-sm-2 col-form-label">Wakil Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" name="wakil_image" id="wakil_image" required>
+                                </div>
+                            </div>
 
-        <br>
+                            <h5 class="card-title">Vision of Candidate</h5>
 
-        <input type="text" name="vision" id="vision">
+                            <div class="row mb-3">
+                                <label for="vision" class="col-sm-2 col-form-label">Vision</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="vision" name="vision" style="height: 100px" required></textarea>
+                                </div>
+                            </div>
 
-        <input type="text" name="mission" id="mission">
+                            <h5 class="card-title">Mission of Candidate</h5>
 
-        <br>
+                            <div class="row mb-3">
+                                <label for="mission" class="col-sm-2 col-form-label">Mission</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="mission" name="mission" style="height: 100px" required></textarea>
+                                </div>
+                            </div>
 
-        <button type="submit">
-            Submit
-        </button>
-    </form>
+                            <div class="row mb-3">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ route('admin.candidate.index') }}" class="btn btn-secondary">Cancel</a>
 
-@endsection
+                                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                                </div>
+                            </div>
+
+                        </form><!-- End Create Candidate -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    @endsection

@@ -29,4 +29,9 @@ class Candidate extends Model
         return $this->belongsTo(User::class, 'wakil_id');
     }
 
+    public function election_candidates()
+    {
+        return $this->hasMany(ElectionCandidate::class);
+    }
+
 }
