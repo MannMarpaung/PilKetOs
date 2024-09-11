@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+// commit 2
     /**
      * Reverse the migrations.
      */
