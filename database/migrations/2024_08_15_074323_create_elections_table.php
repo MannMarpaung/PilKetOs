@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->date('starting_date');
             $table->date('finishing_date');
-            $table->enum('status', ['upcoming', 'ongoing', 'completed'])->default('upcoming');
             $table->timestamps();
         });
     }

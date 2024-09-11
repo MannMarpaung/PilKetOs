@@ -18,7 +18,7 @@
             <div class="col-lg-12">
 
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="overflow: auto">
                         <h5 class="card-title">Election Table</h5>
                         <div class="d-flex justify-content-end mb-2">
                             <form action="{{ route('admin.election.create') }}">
@@ -56,12 +56,21 @@
                                             @endif
                                         </td>
                                         <td>
+                                            {{-- Add Candidate --}}
+                                            <form action="{{ route('admin.election.candidate.index', $item->id) }}" class="m-1">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-plus me-1"></i>
+                                                </button>
+                                            </form>
+
+                                            {{-- Edit Election --}}
                                             <form action="{{ route('admin.election.edit', $item->id) }}" class="m-1">
                                                 <button type="submit" class="btn btn-warning">
                                                     <i class="bi bi-pencil me-1"></i>
                                                 </button>
                                             </form>
 
+                                            {{-- Delete Election --}}
                                             <form action="{{ route('admin.election.destroy', $item->id) }}" method="post"
                                                 class="m-1">
                                                 @csrf

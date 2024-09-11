@@ -16,9 +16,8 @@ class ElectionController extends Controller
     public function index()
     {
         $election = Election::latest()->get();
-        $currentDate = Carbon::now('Asia/Jakarta');
 
-        return view('pages.admin.election.index', compact('election', 'currentDate'));
+        return view('pages.admin.election.index', compact('election'));
     }
 
     /**

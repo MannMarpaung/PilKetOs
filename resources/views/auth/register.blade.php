@@ -80,6 +80,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-select @error('class') is-invalid @enderror" aria-label="Default select example" id="class" name="class" required autocomplete="class">
+                                    <option value="" disabled selected>Select Class</option>
                                     <option value="X RPL">XI RPL</option>
                                     <option value="X TKJ">XI TKJ</option>
                                 </select>

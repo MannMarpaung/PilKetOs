@@ -7,6 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.election.index') }}">Election</a></li>
                 <li class="breadcrumb-item active">Candidate</li>
             </ol>
         </nav>
@@ -18,10 +19,10 @@
             <div class="col-lg-12">
 
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Candidate Table</h5>
+                    <div class="card-body" style="overflow: auto">
+                        <h5 class="card-title">Candidate of {{ $election->name }}</h5>
                         <div class="d-flex justify-content-end mb-2">
-                            <form action="{{ route('admin.candidate.create') }}">
+                            <form action="{{ route('admin.election.candidate.create', $election->id) }}">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-plus me-1"></i> Create Candidate
                                 </button>

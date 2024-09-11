@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use App\Models\Election;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,30 +15,32 @@ class CandidateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
+        $election = Election::findOrFail($id);
         $candidate = Candidate::latest()->get();
 
-        return view('pages.admin.candidate.index', compact('candidate'),);
+        return view('pages.admin.candidate.index', compact('election', 'candidate'),);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
+        $election = Election::findOrFail($id);
         $user = User::where('role', 'user')->get();
 
         return view(
             'pages.admin.candidate.create',
-            compact('user',)
+            compact('user', 'election')
         );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Election $election)
     {
         $this->validate($request, [
             'ketua_id' => 'required',
@@ -51,6 +54,8 @@ class CandidateController extends Controller
         try {
             $data = $request->all();
 
+            $data['election_id'] = $election->id;
+
             $ketua_image = $request->file('ketua_image');
             $ketua_image->storeAs('public/candidate', $ketua_image->hashName());
             $data['ketua_image'] = $ketua_image->hashName();
@@ -59,13 +64,12 @@ class CandidateController extends Controller
             $wakil_image->storeAs('public/candidate', $wakil_image->hashName());
             $data['wakil_image'] = $wakil_image->hashName();
 
+            $election->candidates()->create($data);
 
-            Candidate::create($data);
-
-            return redirect()->route('admin.candidate.index')->with('success', 'Candidate successfully created');
-
+            return redirect()->route('admin.election.candidate.index', $election->id)->with('success', 'Candidate successfully created');
         } catch (Exception $e) {
-            return redirect()->back()->with('errors', 'Candidate failed to created');
+            dd($e);
+            // return redirect()->back()->with('errors', 'Candidate failed to created');
         }
     }
 
@@ -126,7 +130,7 @@ class CandidateController extends Controller
             }
 
             $candidate->update($data);
-            
+
             return redirect()->route('admin.candidate.index')->with('success', 'Candidate failed updated');
         } catch (Exception $e) {
             return redirect()->back()->with('errors', 'Candidate failed to updated');
@@ -141,18 +145,16 @@ class CandidateController extends Controller
         try {
 
             $candidate = Candidate::find($id);
-            
+
             Storage::disk('local')->delete('public/candidate/' . basename($candidate->ketua_image));
             Storage::disk('local')->delete('public/candidate/' . basename($candidate->wakil_image));
-            
+
             $candidate->delete();
 
             return redirect()->back()->with('success', 'Candidate successfully deleted');
-
         } catch (Exception $e) {
-            
-            return redirect()->back()->with('success', 'Candidate failed to deleted');
 
+            return redirect()->back()->with('success', 'Candidate failed to deleted');
         }
     }
 }

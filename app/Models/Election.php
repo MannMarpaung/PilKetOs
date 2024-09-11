@@ -16,9 +16,9 @@ class Election extends Model
         'finishing_date',
     ];
 
-    public function election_candidates()
+    public function candidates()
     {
-        return $this->hasMany(ElectionCandidate::class);
+        return $this->hasMany(Candidate::class);
     }
 
     public function getStatusAttribute()

@@ -7,7 +7,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.candidate.index') }}">Candidate</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.election.index') }}">Election</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.election.candidate.index', $election->id) }}">Candidate</a></li>
                 <li class="breadcrumb-item active">Create Candidate</li>
             </ol>
         </nav>
@@ -21,7 +22,7 @@
                     <div class="card-body">
 
                         <!-- Create Candidate -->
-                        <form action="{{ route('admin.candidate.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.election.candidate.store', $election->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('POST')
                             <h5 class="card-title">Ketua of Candidate</h5>
@@ -92,7 +93,7 @@
 
                             <div class="row mb-3">
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('admin.candidate.index') }}" class="btn btn-secondary">Cancel</a>
+                                    <a href="{{ route('admin.election.candidate.index', $election->id) }}" class="btn btn-secondary">Cancel</a>
 
                                     <button type="submit" class="btn btn-primary">Submit Form</button>
                                 </div>
