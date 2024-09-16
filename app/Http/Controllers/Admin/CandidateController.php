@@ -18,7 +18,7 @@ class CandidateController extends Controller
     public function index($id)
     {
         $election = Election::findOrFail($id);
-        $candidate = Candidate::latest()->get();
+        $candidate = Candidate::oldest()->get();
 
         return view('pages.admin.candidate.index', compact('election', 'candidate'),);
     }
@@ -29,7 +29,7 @@ class CandidateController extends Controller
     public function create($id)
     {
         $election = Election::findOrFail($id);
-        $user = User::where('role', 'user')->get();
+        $user = User::where('role', 'user')->orderBy('name', 'asc')->get();
 
         return view(
             'pages.admin.candidate.create',
@@ -68,37 +68,39 @@ class CandidateController extends Controller
 
             return redirect()->route('admin.election.candidate.index', $election->id)->with('success', 'Candidate successfully created');
         } catch (Exception $e) {
-            dd($e);
-            // return redirect()->back()->with('errors', 'Candidate failed to created');
+            return redirect()->back()->with('errors', 'Candidate failed to created');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $election, string $candidate)
     {
-        $candidate = Candidate::findOrFail($id);
+        $election = Election::findOrFail($election);
+        $candidate = Candidate::findOrFail($candidate);
 
-        return view('pages.admin.candidate.show', compact('candidate'));
+        return view('pages.admin.candidate.show', compact('candidate', 'election'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $election_id, string $candidate_id)
     {
-        $candidate = Candidate::findOrFail($id);
-        $user = User::where('role', 'user')->get();
+        $election = Election::findOrFail($election_id);
+        $candidate = Candidate::findOrFail($candidate_id);
+        $user = User::where('role', 'user')->orderBy('name', 'asc')->get();
 
-        return view('pages.admin.candidate.edit', compact('candidate', 'user'));
+        return view('pages.admin.candidate.edit', compact('election', 'candidate', 'user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $election, string $candidate)
     {
+
         $this->validate($request, [
             'ketua_id' => 'required',
             'wakil_id' => 'required',
@@ -109,7 +111,8 @@ class CandidateController extends Controller
         ]);
 
         try {
-            $candidate = Candidate::find($id);
+            $candidate = Candidate::find($candidate);
+            $election = Election::find($election);
 
             $data = $request->all();
 
@@ -131,8 +134,9 @@ class CandidateController extends Controller
 
             $candidate->update($data);
 
-            return redirect()->route('admin.candidate.index')->with('success', 'Candidate failed updated');
+            return redirect()->route('admin.election.candidate.index', $election->id)->with('success', 'Candidate successfully updated');
         } catch (Exception $e) {
+            // dd($e);
             return redirect()->back()->with('errors', 'Candidate failed to updated');
         }
     }
@@ -140,11 +144,12 @@ class CandidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $electionId, string $candidateId)
     {
         try {
 
-            $candidate = Candidate::find($id);
+            $election = Election::find($electionId);
+            $candidate = $election->candidates->find($candidateId);
 
             Storage::disk('local')->delete('public/candidate/' . basename($candidate->ketua_image));
             Storage::disk('local')->delete('public/candidate/' . basename($candidate->wakil_image));
@@ -153,7 +158,7 @@ class CandidateController extends Controller
 
             return redirect()->back()->with('success', 'Candidate successfully deleted');
         } catch (Exception $e) {
-
+            // dd($e);
             return redirect()->back()->with('success', 'Candidate failed to deleted');
         }
     }

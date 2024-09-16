@@ -7,7 +7,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.candidate.index') }}">Candidate</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.election.index') }}">Election</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.election.candidate.index', $election->id) }}">Candidate</a></li>
                 <li class="breadcrumb-item active">Show Candidate</li>
             </ol>
         </nav>
@@ -20,8 +21,9 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="{{ url('storage/candidate', $candidate->ketua_image) }}" alt="Profile"
-                            class="rounded-circle">
+                        <div class="d-flex justify-content-center">
+                            <img src="{{ url('storage/candidate', $candidate->ketua_image) }}" alt="wakil_image" class="rounded-circle" width="120" height="120" style="object-fit: cover;">
+                        </div>
                         <h2>{{ $candidate->ketua->name }}</h2>
                         <h3>Ketua of Candidate</h3>
                     </div>
@@ -30,8 +32,9 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="{{ url('storage/candidate', $candidate->wakil_image) }}" alt="Profile"
-                            class="rounded-circle">
+                        <div class="d-flex justify-content-center">
+                            <img src="{{ url('storage/candidate', $candidate->wakil_image) }}" alt="wakil_image" class="rounded-circle" width="120" height="120" style="object-fit: cover;">
+                        </div>
                         <h2>{{ $candidate->wakil->name }}</h2>
                         <h3>Wakil of Candidate</h3>
                     </div>
@@ -46,6 +49,12 @@
                         <!-- Bordered Tabs -->
                         <div class="tab-content">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                <h5 class="card-title">Number of Candidate</h5>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Number</div>
+                                    <div class="col-lg-9 col-md-8">{{ $candidate->number }}</div>
+                                </div>
+
                                 <h5 class="card-title">Ketua of Candidate</h5>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Name</div>

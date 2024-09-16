@@ -50,6 +50,13 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="image" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" name="image" id="image" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <div class="d-flex justify-content-between">
                                     <a href="{{ route('admin.election.index') }}" class="btn btn-secondary">Cancel</a>
 

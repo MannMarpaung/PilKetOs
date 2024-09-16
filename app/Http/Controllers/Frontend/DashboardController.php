@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Election;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -38,5 +39,12 @@ class DashboardController extends Controller
         });
 
         return view('pages.frontend.allElections', compact('election', 'upcomingElection', 'ongoingElection', 'completedElection'));
+    }
+
+    public function election(string $id)
+    {
+        
+
+        return view('pages.frontend.election', compact('election'));
     }
 }

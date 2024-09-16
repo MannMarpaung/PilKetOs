@@ -33,6 +33,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Election Name</th>
+                                    <th>Election Image</th>
                                     <th>Starting Date</th>
                                     <th>Finishing Date</th>
                                     <th>Status</th>
@@ -44,6 +45,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{ url('storage/election', $item->image) }}" alt="image" width="120" height="120" style="object-fit: cover;">
+                                            </div>
+                                        </td>
                                         <td>{{ $item->starting_date }}</td>
                                         <td>{{ $item->finishing_date }}</td>
                                         <td>
@@ -56,6 +62,16 @@
                                             @endif
                                         </td>
                                         <td>
+
+                                            {{-- Show Election --}}
+                                            <form
+                                                action="{{ route('admin.election.show', $item->id) }}"
+                                                class="m-1">
+                                                <button type="submit" class="btn btn-info">
+                                                    <i class="bi bi-eye me-1"></i>
+                                                </button>
+                                            </form>
+
                                             {{-- Add Candidate --}}
                                             <form action="{{ route('admin.election.candidate.index', $item->id) }}" class="m-1">
                                                 <button type="submit" class="btn btn-primary">
@@ -78,10 +94,10 @@
 
                                                 <!-- Delete Modal -->
                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteElection">
+                                                    data-bs-target="#deleteElection{{ $item->id }}">
                                                     <i class="bi bi-trash me-1"></i>
                                                 </button>
-                                                <div class="modal fade" id="deleteElection" tabindex="-1">
+                                                <div class="modal fade" id="deleteElection{{ $item->id }}" tabindex="-1">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">

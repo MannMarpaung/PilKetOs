@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('image');
+            $table->string('slug');
             $table->date('starting_date');
             $table->date('finishing_date');
             $table->timestamps();

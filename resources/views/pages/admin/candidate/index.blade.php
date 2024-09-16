@@ -32,7 +32,7 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>Number</th>
                                     <th>Ketua Name</th>
                                     <th>Ketua Image</th>
                                     <th>Wakil Name</th>
@@ -43,41 +43,48 @@
                             <tbody>
                                 @forelse ($candidate as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->number }}</td>
                                         <td>{{ $item->ketua->name }}</td>
                                         <td>
-                                            <img src="{{ url('storage/candidate', $item->ketua_image) }}" alt="ketua_image"
-                                                width="160">
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{ url('storage/candidate', $item->ketua_image) }}" alt="ketua_image" class="rounded-circle" width="160" height="160" style="object-fit: cover;">
+                                            </div>
                                         </td>
                                         <td>{{ $item->wakil->name }}</td>
                                         <td>
-                                            <img src="{{ url('storage/candidate', $item->wakil_image) }}" alt="wakil_image"
-                                                width="160">
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{ url('storage/candidate', $item->wakil_image) }}" alt="wakil_image" class="rounded-circle" width="160" height="160" style="object-fit: cover;">
+                                            </div>
                                         </td>
                                         <td>
-                                            <form action="{{ route('admin.candidate.show', $item->id) }}" class="m-1">
+                                            <form
+                                                action="{{ route('admin.election.candidate.show', [$election->id, $item->id]) }}"
+                                                class="m-1">
                                                 <button type="submit" class="btn btn-info">
                                                     <i class="bi bi-eye me-1"></i>
                                                 </button>
                                             </form>
 
-                                            <form action="{{ route('admin.candidate.edit', $item->id) }}" class="m-1">
+                                            <form
+                                                action="{{ route('admin.election.candidate.edit', [$election->id, $item->id]) }}"
+                                                class="m-1">
                                                 <button type="submit" class="btn btn-warning">
                                                     <i class="bi bi-pencil me-1"></i>
                                                 </button>
                                             </form>
 
-                                            <form action="{{ route('admin.candidate.destroy', $item->id) }}" method="post"
-                                                class="m-1">
+                                            <form
+                                                action="{{ route('admin.election.candidate.destroy', [$election->id, $item->id]) }}"
+                                                method="post" class="me-1">
                                                 @csrf
                                                 @method('DELETE')
 
                                                 <!-- Delete Modal -->
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteCandidate">
+                                                <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteCandidate{{ $item->id }}">
                                                     <i class="bi bi-trash me-1"></i>
                                                 </button>
-                                                <div class="modal fade" id="deleteCandidate" tabindex="-1">
+                                                <div class="modal fade" id="deleteCandidate{{ $item->id }}" tabindex="-1">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -91,7 +98,8 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Delete</button>
                                                             </div>
                                                         </div>
                                                     </div>

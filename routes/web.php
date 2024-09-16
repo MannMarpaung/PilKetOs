@@ -14,6 +14,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/election.candidate', CandidateController::class);
-    Route::resource('/election', ElectionController::class)->except('show');
+    Route::resource('/election', ElectionController::class);
     Route::get('/user', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 });

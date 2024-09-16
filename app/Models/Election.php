@@ -12,6 +12,8 @@ class Election extends Model
 
     protected $fillable = [
         'name',
+        'slug',
+        'image',
         'starting_date',
         'finishing_date',
     ];

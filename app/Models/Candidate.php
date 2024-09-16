@@ -34,4 +34,17 @@ class Candidate extends Model
         return $this->belongsTo(Election::class, 'election_id');
     }
 
+    public function getNumberAttribute()
+    {
+        $candidates = self::where('election_id', $this->election_id)
+            ->orderBy('created_at')
+            ->get();
+
+        $position = $candidates->search(function ($candidate) {
+            return $candidate->id === $this->id;
+        });
+
+        return $position + 1;
+    }
+
 }
