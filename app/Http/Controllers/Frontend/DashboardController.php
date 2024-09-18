@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Election;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -41,10 +42,13 @@ class DashboardController extends Controller
         return view('pages.frontend.allElections', compact('election', 'upcomingElection', 'ongoingElection', 'completedElection'));
     }
 
-    public function election(string $id)
+    public function detailElection($slug)
     {
-        
+        $election = Election::with('candidates')->where('slug', $slug)->first();
 
-        return view('pages.frontend.election', compact('election'));
+        $election->starting_date = Carbon::parse($election->starting_date)->format('l, d F Y');
+        $election->finishing_date = Carbon::parse($election->finishing_date)->format('l, d F Y');
+        
+        return view('pages.frontend.detailElection', compact('election'));
     }
 }
