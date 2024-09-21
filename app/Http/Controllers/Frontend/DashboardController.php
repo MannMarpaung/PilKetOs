@@ -60,4 +60,4 @@ class DashboardController extends Controller
         return view('pages.frontend.detailCandidate', compact('election', 'candidate'));
     }
 }
-// 3
+// 4
