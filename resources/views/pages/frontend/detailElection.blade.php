@@ -1,7 +1,7 @@
 @extends('layouts.frontend.parent')
 
 @section('content')
-    <section id="pricing" class="pricing section mt-5">
+    <section id="pricing " class="pricing section mt-5">
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" class="cta-btn">See Vision & Mission</a>
+                            <a href="{{ route('detail.candidate', [$election->slug, $candidate->id]) }}" class="cta-btn">See Vision & Mission</a>
                         </div>
                     </div><!-- End Pricing Item -->
 

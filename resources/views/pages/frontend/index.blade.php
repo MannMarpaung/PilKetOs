@@ -55,7 +55,10 @@
                     @foreach ($upcomingElection as $item)
                         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                             <div class="service-item item-cyan position-relative">
-                                <i class="bi bi-activity icon"></i>
+                                <div class="d-flex justify-content-center me-4">
+                                    <img src="{{ url('storage/election', $item->image) }}" alt="image" width="80"
+                                        class="rounded-2" height="80" style="object-fit: cover;">
+                                </div>
                                 <div>
                                     <h3>{{ $item->name }}</h3>
                                     <span class="badge bg-info">{{ $item->status }}</span>
@@ -70,12 +73,15 @@
                     @foreach ($completedElection as $item)
                         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                             <div class="service-item item-cyan position-relative">
-                                <i class="bi bi-activity icon"></i>
+                                <div class="d-flex justify-content-center me-4">
+                                    <img src="{{ url('storage/election', $item->image) }}" alt="image" width="80"
+                                        class="rounded-2" height="80" style="object-fit: cover;">
+                                </div>
                                 <div>
                                     <h3>{{ $item->name }}</h3>
                                     <span class="badge bg-success">{{ $item->status }}</span>
                                     <br>
-                                    <a href="" class="read-more stretched-link">See More <i
+                                    <a href="{{ route('detail.election', $item->slug) }}" class="read-more stretched-link">See More <i
                                             class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>

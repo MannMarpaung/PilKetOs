@@ -10,6 +10,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\Frontend\DashboardController::class, 'index'])->name('frontend.index');
 Route::get('/all-elections', [App\Http\Controllers\Frontend\DashboardController::class, 'allElections'])->name('frontend.allElections');
 Route::get('/detail-election/{slug}', [App\Http\Controllers\Frontend\DashboardController::class, 'detailElection'])->name('detail.election');
+Route::get('/detail-election/{slug}/detail-candidate/{id}', [App\Http\Controllers\Frontend\DashboardController::class, 'detailCandidate'])->name('detail.candidate');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
