@@ -23,4 +23,4 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
 Route::name('user.')->prefix('user')->middleware('user')->group(function() {
     Route::post('/vote/{candidateId}', [\App\Http\Controllers\User\VoteController::class, 'userVote'])->name('voting');
 });
-// Commit
+// 2
