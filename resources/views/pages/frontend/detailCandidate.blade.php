@@ -1,7 +1,7 @@
 @extends('layouts.frontend.parent')
 
 @section('content')
-    <section id="service-details" class="service-details section mt-5">
+    <section id="service-details" class="service-details section mt-5 contact">
 
         <div class="container">
 
@@ -46,10 +46,16 @@
                             <p class="border border-3 p-3"><span>Election hasn't started yet</span></p>
                         </div>
                     @elseif ($election->status == 'ongoing')
-                        <div class="services-list mt-5 d-flex justify-content-center">
-                            <a href="#" class="active"><i class="bi bi-arrow-right-circle"></i><span>Vote this
-                                    Candidate</span></a>
-                        </div>
+                        <form action="{{ route('user.voting', $candidate->id) }}" method="post"
+                            enctype="multipart/form-data">
+                            <div class="services-list mt-5 d-flex justify-content-center php-email-form">
+                                @csrf
+                                @method('POST')
+                                <button type="submit"><span>Vote
+                                        this
+                                        Candidate</span></button>
+                            </div>
+                        </form>
                     @elseif ($election->status == 'completed')
                         <div class="services-list mt-5 d-flex justify-content-center">
                             <p class="border border-3 p-3"><span>Election has finished</span></p>

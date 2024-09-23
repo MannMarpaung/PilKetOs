@@ -19,3 +19,8 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
     Route::resource('/election', ElectionController::class);
     Route::get('/user', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 });
+
+Route::name('user.')->prefix('user')->middleware('user')->group(function() {
+    Route::post('/vote/{candidateId}', [\App\Http\Controllers\User\VoteController::class, 'userVote'])->name('voting');
+});
+// Commit
