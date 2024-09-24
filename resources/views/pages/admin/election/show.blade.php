@@ -57,7 +57,7 @@
                                         @if ($election->status != 'completed')
                                             Election has not completed yet
                                         @else
-                                            <a href="{{ route('admin.result', $election->id) }}">Result</a>
+                                            <a href="{{ route('admin.election.result', $election->id) }}">Result</a>
                                         @endif
                                     </div>
                                 </div>

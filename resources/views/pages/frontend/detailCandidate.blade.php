@@ -41,7 +41,11 @@
                         {{ $candidate->mission }}
                     </p>
 
-                    @if ($election->status == 'upcoming')
+                    @if (Auth()->user()->role == 'admin')
+                    <div class="services-list mt-5 d-flex justify-content-center">
+                        <p class="border border-3 p-3"><span>Admin can't vote</span></p>
+                    </div>
+                    @elseif ($election->status == 'upcoming')
                         <div class="services-list mt-5 d-flex justify-content-center">
                             <p class="border border-3 p-3"><span>Election hasn't started yet</span></p>
                         </div>
