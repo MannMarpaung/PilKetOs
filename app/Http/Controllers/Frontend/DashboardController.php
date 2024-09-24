@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Election;
+use App\Models\Vote;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index() 
+    public function index()
     {
         $election = Election::latest()->get();
         $upcomingElection = $election->filter(function ($election) {
@@ -27,7 +29,7 @@ class DashboardController extends Controller
         return view('pages.frontend.index', compact('election', 'upcomingElection', 'ongoingElection', 'completedElection'));
     }
 
-    public function allElections() 
+    public function allElections()
     {
         $election = Election::latest()->get();
         $upcomingElection = $election->filter(function ($election) {
@@ -49,14 +51,24 @@ class DashboardController extends Controller
 
         $election->starting_date = Carbon::parse($election->starting_date)->format('l, d F Y');
         $election->finishing_date = Carbon::parse($election->finishing_date)->format('l, d F Y');
-        
-        return view('pages.frontend.detailElection', compact('election'));
+
+        $candidates = Candidate::where('election_id', $election->id)
+                    ->withCount('votes')
+                    ->orderBy('votes_count', 'desc')
+                    ->get();
+
+        return view('pages.frontend.detailElection', compact('election', 'candidates'));
     }
 
-    public function detailCandidate($slug, $id) {
+    public function detailCandidate($slug, $id)
+    {
         $candidate = Candidate::findOrFail($id);
         $election = Election::where('slug', $slug)->first();
 
-        return view('pages.frontend.detailCandidate', compact('election', 'candidate'));
+        $hasVoted = Vote::where('user_id', Auth::user()->id)
+            ->where('election_id', $election->id)
+            ->exists();
+
+        return view('pages.frontend.detailCandidate', compact('election', 'candidate', 'hasVoted'));
     }
 }

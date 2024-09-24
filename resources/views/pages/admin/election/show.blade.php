@@ -50,6 +50,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Result</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        @if ($election->status != 'completed')
+                                            Election has not completed yet
+                                        @else
+                                            <a href="{{ route('admin.result', $election->id) }}">Result</a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

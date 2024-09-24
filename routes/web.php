@@ -17,6 +17,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/election.candidate', CandidateController::class);
     Route::resource('/election', ElectionController::class);
+    Route::get('/election/{id}/result', [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('election.result');
     Route::get('/user', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 });
 

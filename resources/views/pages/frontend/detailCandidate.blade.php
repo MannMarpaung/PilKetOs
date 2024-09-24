@@ -46,16 +46,22 @@
                             <p class="border border-3 p-3"><span>Election hasn't started yet</span></p>
                         </div>
                     @elseif ($election->status == 'ongoing')
-                        <form action="{{ route('user.voting', $candidate->id) }}" method="post"
-                            enctype="multipart/form-data">
-                            <div class="services-list mt-5 d-flex justify-content-center php-email-form">
-                                @csrf
-                                @method('POST')
-                                <button type="submit"><span>Vote
-                                        this
-                                        Candidate</span></button>
+                        @if ($hasVoted)
+                            <div class="services-list mt-5 d-flex justify-content-center">
+                                <p class="border border-3 p-3"><span>You have voted</span></p>
                             </div>
-                        </form>
+                        @else
+                            <form action="{{ route('user.voting', $candidate->id) }}" method="post"
+                                enctype="multipart/form-data">
+                                <div class="services-list mt-5 d-flex justify-content-center php-email-form">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit"><span>Vote
+                                            this
+                                            Candidate</span></button>
+                                </div>
+                            </form>
+                        @endif
                     @elseif ($election->status == 'completed')
                         <div class="services-list mt-5 d-flex justify-content-center">
                             <p class="border border-3 p-3"><span>Election has finished</span></p>

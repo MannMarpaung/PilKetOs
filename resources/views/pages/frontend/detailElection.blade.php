@@ -15,7 +15,7 @@
                 <div class="download-catalog">
 
                     <table>
-                        @forelse ($election->candidates as $item)
+                        @forelse ($candidates as $item)
                             <tr>
                                 <th class="mr-5">
                                     @if ($loop->iteration == 1)
@@ -25,18 +25,24 @@
                                     @elseif ($loop->iteration == 3)
                                         3rd
                                     @else
-                                        {{ $loop->iteration }}th |
+                                        {{ $loop->iteration }}th
                                     @endif
                                 </th>
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <a href="#{{ $item->id }}" style="padding-bottom: 0px;">
-                                            <span>{{ $item->ketua->name }} & {{ $item->wakil->name }}</span>
-                                        </a>
-                                        <span style="color: gray; font-size: 12px;">Number of Candidate
-                                            {{ $item->number }}</span>
-                                    </div>
-                                </td>
+                                @if ($election->status == 'completed')
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <a href="#{{ $item->id }}" style="padding-bottom: 0px;">
+                                                <span>{{ $item->ketua->name }} & {{ $item->wakil->name }}</span>
+                                            </a>
+                                            <span style="color: gray; font-size: 12px;">{{ $item->votes_count }} Voted</span>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        {{ $election->status }}
+                                    </td>
+                                @endif
+
                             </tr>
 
                         @empty
