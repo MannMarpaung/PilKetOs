@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CandidateController;
 use App\Http\Controllers\Admin\ElectionController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,12 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
 
 Route::name('user.')->prefix('user')->middleware('user')->group(function() {
     Route::post('/vote/{candidateId}', [\App\Http\Controllers\User\VoteController::class, 'userVote'])->name('voting');
+});
+
+// Route::artisan Call
+Route::get('/artisan-call', function(){
+    Artisan::call('storage:link'); //storage:link
+    Artisan::call('route:clear'); //route:clear
+    Artisan::call('config:clear'); //config:clear
+    return 'success';
 });

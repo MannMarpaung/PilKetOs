@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
         $user->nis = 0;
         $user->class = 'admin';
         $user->email = 'admin@gmail.com';
-        $user->password = bcrypt('admin');
+        $user->password = bcrypt('pilketosadmin');
         $user->save();
     }
 }
