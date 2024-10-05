@@ -5,7 +5,7 @@
         <h1>Election</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('frontend.index') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.election.index') }}">Election</a></li>
                 <li class="breadcrumb-item active">Show Election</li>
@@ -57,7 +57,7 @@
                                         @if ($election->status != 'completed')
                                             Election has not completed yet
                                         @else
-                                            <a href="{{ route('admin.election.result', $election->id) }}">Result</a>
+                                            <a href="{{ Auth::user()->role == 'admin' ? route('admin.election.result', $election->id) : route('user.election.result', $election->id) }}">Result</a>
                                         @endif
                                     </div>
                                 </div>
@@ -79,7 +79,8 @@
                                 <div class="col-xl-5 pt-4 d-flex flex-column align-items-center">
 
                                     <div class="d-flex justify-content-center">
-                                        <img src="{{ url('storage/candidate', $can->ketua_image) }}" alt="ketua_image" width="120" height="120" class="rounded-circle" style="object-fit: cover;">
+                                        <img src="{{ url('storage/candidate', $can->ketua_image) }}" alt="ketua_image"
+                                            width="120" height="120" class="rounded-circle" style="object-fit: cover;">
                                     </div>
                                     <h2>{{ $can->ketua->name }}</h2>
                                     <h3>Ketua of Candidate</h3>
@@ -87,15 +88,18 @@
                                 <div class="col-xl-5 pt-4 d-flex flex-column align-items-center">
 
                                     <div class="d-flex justify-content-center">
-                                        <img src="{{ url('storage/candidate', $can->wakil_image) }}" alt="wakil_image" width="120" height="120" class="rounded-circle" style="object-fit: cover;">
+                                        <img src="{{ url('storage/candidate', $can->wakil_image) }}" alt="wakil_image"
+                                            width="120" height="120" class="rounded-circle" style="object-fit: cover;">
                                     </div>
                                     <h2>{{ $can->wakil->name }}</h2>
                                     <h3>Wakil of Candidate</h3>
                                 </div>
                             </div>
-                            <form action="{{ route('admin.election.candidate.show', [$election->id, $can->id]) }}">
-                                <button type="submit" class="btn btn-info text-white">Show More</button>
-                            </form>
+                            @if (Auth::user()->role == 'admin')
+                                <form action="{{ route('admin.election.candidate.show', [$election->id, $can->id]) }}">
+                                    <button type="submit" class="btn btn-info text-white">Show More</button>
+                                </form>
+                            @endif
 
                         </div>
                     </div>
@@ -107,9 +111,12 @@
             <h5 class="card-title text-center">
                 No Data
             </h5>
-                <form action="{{ route('admin.election.candidate.index', $election->id) }}" class="d-flex justify-content-center mb-3">
+            @if (Auth::user()->role == 'admin')
+                <form action="{{ route('admin.election.candidate.index', $election->id) }}"
+                    class="d-flex justify-content-center mb-3">
                     <button type="submit" class="btn btn-primary text-white">Add Candidate</button>
                 </form>
+            @endif
         </div>
     </div>
     @endforelse

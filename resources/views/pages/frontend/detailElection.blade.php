@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('detail.candidate', [$election->slug, $candidate->id]) }}"
+                            <a href="{{ Auth::check() == true ? route('detail.candidate', [$election->slug, $candidate->id]) : route('login') }}"
                                 class="cta-btn">See
                                 Vision & Mission</a>
                         </div>

@@ -29,7 +29,7 @@
                             </li>
                         </form>
                         <li>
-                            <a href="#">{{ Auth::user()->name }}</a>
+                            <a href="{{ route('user.dashboard') }}">{{ Auth::user()->name }}</a>
                         </li>
                     @endif
                 @else
@@ -37,9 +37,6 @@
                         <form action="{{ route('login') }}">
                             <button class="btn-getstarted border-0">Login</button>
                         </form>
-                    </li>
-                    <li>
-                        <a href="{{ route('register') }}">Register</a>
                     </li>
                 @endif
             </ul>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', [App\Http\Controllers\Frontend\DashboardController::class, 'index'])->name('frontend.index');
 Route::get('/all-elections', [App\Http\Controllers\Frontend\DashboardController::class, 'allElections'])->name('frontend.allElections');
@@ -24,6 +24,10 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function() {
 
 Route::name('user.')->prefix('user')->middleware('user')->group(function() {
     Route::post('/vote/{candidateId}', [\App\Http\Controllers\User\VoteController::class, 'userVote'])->name('voting');
+    Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/election', [\App\Http\Controllers\User\ElectionController::class, 'index'])->name('election.index');
+    Route::get('/election/{id}', [\App\Http\Controllers\User\ElectionController::class, 'show'])->name('election.show');
+    Route::get('/election/{id}/result', [\App\Http\Controllers\User\ResultController::class, 'index'])->name('election.result');
 });
 
 // Route::artisan Call
@@ -31,5 +35,10 @@ Route::get('/artisan-call', function(){
     Artisan::call('storage:link'); //storage:link
     Artisan::call('route:clear'); //route:clear
     Artisan::call('config:clear'); //config:clear
+    return 'success';
+});
+
+Route::get('/hash-password', function() {
+    Artisan::call('user:hash-user-passwords');
     return 'success';
 });

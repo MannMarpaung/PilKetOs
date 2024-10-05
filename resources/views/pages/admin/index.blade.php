@@ -21,7 +21,8 @@
                 <div class="card info-card customers-card">
 
                     <div class="card-body">
-                        <h5 class="card-title">Role : {{ Auth::user()->role }} <span>| Email : {{ Auth::user()->email }}</span></h5>
+                        <h5 class="card-title">Role : {{ Auth::user()->role }} <span>| Email :
+                                {{ Auth::user()->email }}</span></h5>
 
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -41,26 +42,29 @@
             </div>
             <!-- End Auth Card -->
 
-            <!-- Users Card -->
-            <div class="col-xxl-4 col-md-4">
-                <div class="card info-card sales-card">
+            @if (Auth::user()->role == 'admin')
+                <!-- Users Card -->
+                <div class="col-xxl-4 col-md-4">
+                    <div class="card info-card sales-card">
 
-                    <div class="card-body">
-                        <h5 class="card-title">Users</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Users</h5>
 
-                        <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-person-check"></i>
-                            </div>
-                            <div class="ps-3">
-                                <h6>{{ $userCount }}</h6>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ $userCount }}</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
-            <!-- End Users Card -->
+                <!-- End Users Card -->
+            @endif
+
 
         </div>
     </section>
