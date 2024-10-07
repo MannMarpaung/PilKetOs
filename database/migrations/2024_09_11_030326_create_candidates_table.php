@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreign('wakil_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('ketua_image');
             $table->string('wakil_image');
-            $table->string('vision');
-            $table->string('mission');
+            $table->text('vision');
+            $table->text('mission');
             $table->timestamps();
         });
     }
