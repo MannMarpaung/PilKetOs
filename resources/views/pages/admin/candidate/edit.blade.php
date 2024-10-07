@@ -76,7 +76,7 @@
                             <div class="row mb-3">
                                 <label for="vision" class="col-sm-2 col-form-label">Vision</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="vision" name="vision" maxlength="65530" style="height: 100px" required>{{ $candidate->vision }}</textarea>
+                                    <textarea class="form-control" id="vision" name="vision" style="height: 100px" required>{{ $candidate->vision }}</textarea>
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@
                             <div class="row mb-3">
                                 <label for="mission" class="col-sm-2 col-form-label">Mission</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="mission" name="mission" maxlength="65530" style="height: 100px" required>{{ $candidate->mission }}</textarea>
+                                    <textarea class="form-control" id="mission" name="mission" style="height: 100px" required>{{ $candidate->mission }}</textarea>
                                 </div>
                             </div>
 

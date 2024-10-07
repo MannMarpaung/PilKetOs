@@ -18,7 +18,7 @@ class CandidateController extends Controller
     public function index($id)
     {
         $election = Election::findOrFail($id);
-        $candidate = Candidate::oldest()->get();
+        $candidate = Candidate::where('election_id', $id)->oldest()->get();
 
         return view('pages.admin.candidate.index', compact('election', 'candidate'),);
     }
